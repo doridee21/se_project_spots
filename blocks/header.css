@@ -1,0 +1,41 @@
+.header {
+  background-color: #fff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  /*width: 1440px;
+  height: 210px;
+  border-bottom: 1px;
+  padding-bottom: 20px;*/
+}
+
+.header__logo {
+  width: 94px;
+  height: 26px;
+}
+
+/*The code below is from rearranging tags and classes. Below is from the profile section*/
+
+/*.header__name {
+  width: 420px;
+  height: 32px;
+  margin: 0;
+  font-family: "Poppins", Courier New, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 32px;
+  text-align: left;
+}*/
+
+/*.header__job {
+  width: 97px;
+  height: 16px;
+  margin: 0;
+  font-family: Poppins;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: left;
+}*/
+
+/*.header__form {
+}*/
