@@ -3,15 +3,25 @@
 }
 
 .card__image {
-  height: 413px;
-  width: 413px;
+  height: 288px;
+  width: 288px;
   display: block;
+  border-radius: 8px;
 }
 
 .card__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.card__title {
+  font-family: "Poppins", "Courier New", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(33, 33, 33, 1);
+  margin: 12px 0 4px;
 }
 
 .card__like-btn {
@@ -21,4 +31,14 @@
   border: none;
   background-color: transparent;
   opacity: 40%;
+}
+
+@media screen and (max-width: 627px) {
+  card__image {
+    height: 288px;
+  }
+
+  .card__title {
+    margin: 12px 0 2px;
+  }
 }
