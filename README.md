@@ -17,5 +17,5 @@ With the Spots app, users have the ability to connect and socialize through post
 
 This webpage is deployed to GitHub Pages
 
-- Link goes here...
+- [Deployment Link](https://doridee21.github.io/se_project_spots/)
 - Video link goes here...
