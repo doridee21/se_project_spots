@@ -32,6 +32,7 @@ const initialCards = [
 ];
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
+const cardModalBtn = document.querySelector(".profile__add-btn");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
@@ -43,8 +44,26 @@ const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
 
+const cardModal = document.querySelector("#add-card-modal");
+const cardModalCloseBtn = cardModal.querySelector(".modal__close");
+
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
+
+function openModal(modal) {
+  editModal.classList.add("modal_opened");
+}
+
+function closeModal(modal) {
+  editModal.classList.remove("modal_opened");
+}
+
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = editModalNameInput.value;
+  profileDescription.textContent = editModalDescriptionInput.value;
+  closeModal();
+}
 
 function getCardElement(data) {
   console.log(data);
@@ -62,25 +81,24 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function openModal() {
+profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  editModal.classList.add("modal_opened");
-}
+  openModal(editModal);
+});
 
-function closeModal() {
-  editModal.classList.remove("modal_opened");
-}
+editModalClosebtn.addEventListener("click", () => {
+  closeModal(editModal);
+});
+//new listeners
+cardModalBtn.addEventListener("click", () => {
+  openModal(cardModal);
+});
 
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal();
-}
+cardModalCloseBtn.addEventListener("click", () => {
+  closeModal(cardModal);
+});
 
-profileEditButton.addEventListener("click", openModal);
-editModalClosebtn.addEventListener("click", closeModal);
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 
 initialCards.forEach((item) => {
