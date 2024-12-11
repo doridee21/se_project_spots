@@ -51,11 +51,11 @@ const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
 function openModal(modal) {
-  editModal.classList.add("modal_opened");
+  modal.classList.add("modal_opened");
 }
 
 function closeModal(modal) {
-  editModal.classList.remove("modal_opened");
+  modal.classList.remove("modal_opened");
 }
 
 function handleEditFormSubmit(evt) {
