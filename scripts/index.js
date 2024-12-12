@@ -89,17 +89,26 @@ function getCardElement(data) {
 
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+  //TODO - Select the delete button
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = data.altText;
 
+  cardLikeBtn.addEventListener("click", () => {
+    cardLikeBtn.classList.toggle("card__like-btn_liked");
+  });
+
+  // TODO - set the listener on the delete button
+  // TODO - The handler should remove the card from the DOM
+
   return cardElement;
 }
 
 profileEditButton.addEventListener("click", () => {
-  //editModalNameInput.value = profileName.textContent;
-  //editModalDescriptionInput.value = profileDescription.textContent;
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
   openModal(editModal);
 });
 
