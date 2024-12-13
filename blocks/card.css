@@ -20,6 +20,10 @@
   border: none;
 }
 
+.card__delete-btn:hover {
+  background: url(../images/delete_icon-hover.png);
+}
+
 .card__content {
   display: flex;
   align-items: center;
