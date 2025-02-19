@@ -11,7 +11,6 @@ const hideInputError = (formEl, inputEl) => {
 };
 
 const checkInputValidity = (formEl, inputEl) => {
-  console.log(inputEl.validationMessage);
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, inputEl.validationMessage);
   } else {
@@ -27,11 +26,13 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonEl) => {
   if (hasInvalidInput(inputList)) {
-    buttonEl.disable = true;
+    buttonEl.disabled = true;
+    buttonEl.classList.add(".modal__submit-btn-inactive");
     // TODO Add a modifier class to the buttonEl to make it grey
     // TODO - Don't forget the CSS
   } else {
     buttonEl.disabled = false;
+    buttonEl.classList.remove(".modal__submit-btn-inactive");
   }
 };
 
@@ -39,10 +40,12 @@ const setEventListeners = (formEl) => {
   const inputList = Array.from(formEl.querySelectorAll(".modal__input"));
   const buttonElement = formEl.querySelector(".modal__submit-btn");
 
+  toggleButtonState(inputList, buttonElement);
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
       checkInputValidity(formEl, inputElement);
-      //toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
