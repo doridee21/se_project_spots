@@ -45,6 +45,7 @@ const profileDescription = document.querySelector(".profile__description");
 //Form elements
 const editModal = document.querySelector("#edit-modal");
 const editFormElement = editModal.querySelector(".modal__form");
+const cardSubmitBtn = editModal.querySelector(".modal__button");
 const editModalClosebtn = editModal.querySelector(".modal__close-btn");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
@@ -85,12 +86,38 @@ function handleEditFormSubmit(evt) {
   closeModal(editModal);
 }
 
+function toogleButtonState() {
+  const cardName = cardNameInput.value.trim();
+  const cardLink = cardLinkInput.value.trim();
+
+  if (cardName && cardLink) {
+    cardSubmitBtn.disabled = false;
+    cardSubmitBtn.classList.remove("modal_button_disabled");
+  } else {
+    cardSubmitBtn.disabled = true;
+    cardSubmitBtn.classList.add("modal_button_disabled");
+  }
+}
+
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+
+  const cardName = cardNameInput.value.trim();
+  const cardLink = cardLinkInput.value.trim();
+
+  if (!cardName || !cardLink) {
+    //disableButton(cardSubmitBtn);
+    //alert("Both fields must be filled out.");
+    return;
+  }
+
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardElement = getCardElement(inputValues);
+
   cardsList.prepend(cardElement);
   evt.target.reset();
+  toogleButtonState();
+  //disableButton(cardSubmitBtn);
   closeModal(cardModal);
 }
 
@@ -126,6 +153,11 @@ function getCardElement(data) {
 
   return cardElement;
 }
+
+cardNameInput.addEventListener("input", toogleButtonState);
+cardLinkInput.addEventListener("input", toogleButtonState);
+
+toogleButtonState();
 
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;

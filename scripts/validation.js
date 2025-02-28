@@ -36,14 +36,17 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonEl) => {
   if (hasInvalidInput(inputList)) {
     buttonEl.disabled = true;
-    buttonEl.classList.add(".modal__button_disabled");
-    // TODO Add a modifier class to the buttonEl to make it grey
-    // TODO - Don't forget the CSS
+    buttonEl.classList.add("modal__button_disabled");
   } else {
     buttonEl.disabled = false;
-    buttonEl.classList.remove(".modal__button_disabled");
+    buttonEl.classList.remove("modal__button_disabled");
   }
 };
+
+/*const disableButton = (buttonEl) => {
+  buttonEl.disabled = true;
+  buttonEl.classList.remove("modal__button_disabled");
+};*/
 
 /*const resetValidation = (formEl, inputList) => {
   inputList.foreach((input) => {
