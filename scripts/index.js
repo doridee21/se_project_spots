@@ -58,6 +58,7 @@ const previewModalCaptionEl = document.querySelector(".modal__caption");
 const previewModalCloseBtn = document.querySelector(
   ".modal__close-btn_type_preview"
 );
+//const closeModal = document.querySelectorAll(".modal_open");
 
 // select other neccesary elements
 
@@ -154,6 +155,21 @@ function getCardElement(data) {
   return cardElement;
 }
 
+/*function closeModal(evt) {
+  if (evt.key === "Escape") {
+    const openModal = document.querySelectorAll(".modal_open");
+    if (openModal) {
+      closeModal(openModal);
+    }
+  }
+}*/
+
+function closeModalOnOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.target);
+  }
+}
+
 cardNameInput.addEventListener("input", toogleButtonState);
 cardLinkInput.addEventListener("input", toogleButtonState);
 
@@ -167,6 +183,12 @@ profileEditButton.addEventListener("click", () => {
     editModalDescriptionInput,
   ]);*/
   openModal(editModal);
+});
+
+//document.addEventListener("keydown", closeModal);
+
+document.querySelectorAll(".modal").forEach((modal) => {
+  modal.addEventListener("click", closeModalOnOverlayClick);
 });
 
 editModalClosebtn.addEventListener("click", () => {
