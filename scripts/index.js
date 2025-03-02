@@ -103,22 +103,12 @@ function toogleButtonState() {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
-  const cardName = cardNameInput.value.trim();
-  const cardLink = cardLinkInput.value.trim();
-
-  if (!cardName || !cardLink) {
-    //disableButton(cardSubmitBtn);
-    //alert("Both fields must be filled out.");
-    return;
-  }
-
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardElement = getCardElement(inputValues);
 
   cardsList.prepend(cardElement);
   evt.target.reset();
-  toogleButtonState();
-  //disableButton(cardSubmitBtn);
+  disableButton(cardSubmitBtn);
   closeModal(cardModal);
 }
 
@@ -130,7 +120,6 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
-  //TODO - Select the delete button
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
@@ -155,14 +144,14 @@ function getCardElement(data) {
   return cardElement;
 }
 
-/*function closeModal(evt) {
+function closeModalOnEscape(evt) {
   if (evt.key === "Escape") {
-    const openModal = document.querySelectorAll(".modal_open");
+    const openModal = document.querySelector(".modal_opened");
     if (openModal) {
       closeModal(openModal);
     }
   }
-}*/
+}
 
 function closeModalOnOverlayClick(evt) {
   if (evt.target.classList.contains("modal")) {
@@ -178,14 +167,14 @@ toogleButtonState();
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  /*resetValidation(editFormElement, [
+  resetValidation(editFormElement, [
     editModalNameInput,
     editModalDescriptionInput,
-  ]);*/
+  ]);
   openModal(editModal);
 });
 
-//document.addEventListener("keydown", closeModal);
+document.addEventListener("keydown", closeModalOnEscape);
 
 document.querySelectorAll(".modal").forEach((modal) => {
   modal.addEventListener("click", closeModalOnOverlayClick);

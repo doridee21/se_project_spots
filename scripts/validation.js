@@ -35,27 +35,24 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonEl) => {
   if (hasInvalidInput(inputList)) {
-    buttonEl.disabled = true;
-    buttonEl.classList.add("modal__button_disabled");
+    disableButton(buttonEl);
   } else {
     buttonEl.disabled = false;
     buttonEl.classList.remove("modal__button_disabled");
   }
 };
 
-/*const disableButton = (buttonEl) => {
+const disableButton = (buttonEl) => {
   buttonEl.disabled = true;
-  buttonEl.classList.remove("modal__button_disabled");
-};*/
+  buttonEl.classList.add("modal__button_disabled");
+};
 
-/*const resetValidation = (formEl, inputList) => {
-  inputList.foreach((input) => {
+const resetValidation = (formEl, inputList) => {
+  console.log(inputList);
+  inputList.forEach((input) => {
     hideInputError(formEl, input);
   });
 };
-*/
-
-//TODO - use the settings object in all functions instead of hard-coded strings
 
 const setEventListeners = (formEl, config) => {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
