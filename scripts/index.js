@@ -87,19 +87,6 @@ function handleEditFormSubmit(evt) {
   closeModal(editModal);
 }
 
-function toogleButtonState() {
-  const cardName = cardNameInput.value.trim();
-  const cardLink = cardLinkInput.value.trim();
-
-  if (cardName && cardLink) {
-    cardSubmitBtn.disabled = false;
-    cardSubmitBtn.classList.remove("modal_button_disabled");
-  } else {
-    cardSubmitBtn.disabled = true;
-    cardSubmitBtn.classList.add("modal_button_disabled");
-  }
-}
-
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
@@ -159,11 +146,6 @@ function closeModalOnOverlayClick(evt) {
   }
 }
 
-cardNameInput.addEventListener("input", toogleButtonState);
-cardLinkInput.addEventListener("input", toogleButtonState);
-
-toogleButtonState();
-
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
@@ -184,6 +166,7 @@ editModalClosebtn.addEventListener("click", () => {
   closeModal(editModal);
 });
 //new listeners
+
 cardModalBtn.addEventListener("click", () => {
   openModal(cardModal);
 });
