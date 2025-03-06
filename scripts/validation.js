@@ -1,26 +1,22 @@
 const settings = {
-  formSelector: ".modal__form", //working
-  inputSelector: ".modal__input", //working
-  submitButtonSelector: ".modal__button", //working
-  inactiveButtonClass: "modal__button_disabled", //working
-  inputErrorClass /*Selector*/: "modal__input_type_error",
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
 
 const showInputError = (formEl, inputEl, errorMsg, config) => {
   const errorMsgEl = formEl.querySelector(`#${inputEl.id}-error`);
   errorMsgEl.textContent = errorMsg;
-  inputEl.classList.add(
-    /*"modal__input_type_error"*/ config.inputErrorClass /*Selector*/
-  );
+  inputEl.classList.add(config.inputErrorClass);
 };
 
 const hideInputError = (formEl, inputEl, config) => {
   const errorMsgEl = formEl.querySelector(`#${inputEl.id}-error`);
   errorMsgEl.textContent = "";
-  inputEl.classList.remove(
-    /*"modal__input_type_error"*/ config.inputErrorClass /*Selector*/
-  );
+  inputEl.classList.remove(config.inputErrorClass);
 };
 
 const checkInputValidity = (formEl, inputEl) => {

@@ -58,7 +58,6 @@ const previewModalCaptionEl = document.querySelector(".modal__caption");
 const previewModalCloseBtn = document.querySelector(
   ".modal__close-btn_type_preview"
 );
-//const closeModal = document.querySelectorAll(".modal_open");
 
 // select other neccesary elements
 
@@ -97,14 +96,15 @@ function handleAddCardSubmit(evt) {
 
   if (!cardName || !cardLink) {
     disableButton(cardSubmitBtn, settings);
+    return;
   }
 
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardElement = getCardElement(inputValues);
 
   cardsList.prepend(cardElement);
-  evt.target.reset();
-  disableButton(cardSubmitBtn, settings);
+  cardForm.reset();
+
   closeModal(cardModal);
 }
 
@@ -174,10 +174,15 @@ document.querySelectorAll(".modal").forEach((modal) => {
 editModalClosebtn.addEventListener("click", () => {
   closeModal(editModal);
 });
+
 //new listeners
 
 cardModalBtn.addEventListener("click", () => {
   openModal(cardModal);
+  const inputList = Array.from(
+    cardForm.querySelectorAll(settings.inputSelector)
+  );
+  toggleButtonState(inputList, cardSubmitBtn, settings);
 });
 
 cardModalCloseBtn.addEventListener("click", () => {
