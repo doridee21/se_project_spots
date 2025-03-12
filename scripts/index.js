@@ -50,6 +50,7 @@ const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
+
 // select the modal
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = document.querySelector(".modal__image");
@@ -57,10 +58,8 @@ const previewModalCaptionEl = document.querySelector(".modal__caption");
 const previewModalCloseBtn = document.querySelector(
   ".modal__close-btn_type_preview"
 );
-//const closeModal = document.querySelectorAll(".modal_open");
 
 // select other neccesary elements
-
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = document.querySelector("#add-card-form");
 const cardModalCloseBtn = document.querySelector("#modal-close-btn");
@@ -70,8 +69,7 @@ const cardNameInput = document.querySelector("#add-card-name-input");
 //Card related elements
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
-const cardSubmitBtn =
-  cardModal.querySelector(".modal__button"); /*moved line from line 48*/
+const cardSubmitBtn = cardModal.querySelector(".modal__button");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -80,6 +78,7 @@ function openModal(modal) {
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalOnEscape);
 }
 
 function handleEditFormSubmit(evt) {
@@ -87,17 +86,6 @@ function handleEditFormSubmit(evt) {
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
   closeModal(editModal);
-}
-
-function toogleButtonState() {
-  const cardName = cardNameInput.value.trim();
-  const cardLink = cardLinkInput.value.trim();
-
-  cardSubmitBtn.disabled = false;
-  cardSubmitBtn.classList.remove("modal_button_disabled");
-
-  cardSubmitBtn.disabled = true;
-  cardSubmitBtn.classList.add("modal_button_disabled");
 }
 
 function handleAddCardSubmit(evt) {
@@ -108,7 +96,7 @@ function handleAddCardSubmit(evt) {
 
   cardsList.prepend(cardElement);
   evt.target.reset();
-  disableButton(cardSubmitBtn);
+  disableButton(cardSubmitBtn, settings);
   closeModal(cardModal);
 }
 
@@ -158,11 +146,6 @@ function closeModalOnOverlayClick(evt) {
     closeModal(evt.target);
   }
 }
-
-cardNameInput.addEventListener("input", toogleButtonState);
-cardLinkInput.addEventListener("input", toogleButtonState);
-
-toogleButtonState();
 
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
