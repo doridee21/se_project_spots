@@ -1,6 +1,6 @@
 # Spots
 
-Is a social photo sharing application; availiable on web and mobile decives.
+Is a social photo sharing application; available on web and mobile decives.
 
 ## Description
 
