@@ -1,0 +1,20 @@
+{
+  "name": "se_project_spots",
+  "version": "0.0.1",
+  "description": "Educational platform",
+  "homepage": "https://github.com/doridee21/se_project_spots#readme",
+  "bugs": {
+    "url": "https://github.com/doridee21/se_project_spots/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doridee21/se_project_spots.git"
+  },
+  "license": "ISC",
+  "author": "Dorion Miller",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
