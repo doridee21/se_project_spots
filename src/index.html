@@ -6,6 +6,14 @@
     <title>Webpack</title>
   </head>
   <body>
-    <h1>Hello</h1>
+    <h1 class="page__title">Hello from Webpack!</h1>
+    <h2 class="page__subtitle">Image and Font Files Processing!</h2>
+    <img alt="steps" class="page__image" id="image-steps" />
+    <div class="page__image page__image_achievements"></div>
+    <img
+      alt="contacts"
+      class="page__image"
+      src="<%= require('./images/website-contacts.jpg')%>"
+    />
   </body>
 </html>
