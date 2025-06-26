@@ -15,4 +15,6 @@ const presets = [
   ],
 ];
 
-module.exports = { presets };
+export default { presets };
+
+//module.exports = { presets, sourceType: "module" };

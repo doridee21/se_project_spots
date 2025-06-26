@@ -1,7 +1,7 @@
 {
   "name": "se_project_spots",
-  "version": "0.0.1",
-  "description": "tripleten S.E. program",
+  "version": "0.1.0",
+  "description": "Educational Platform",
   "homepage": "https://github.com/doridee21/se_project_spots#readme",
   "bugs": {
     "url": "https://github.com/doridee21/se_project_spots/issues"
@@ -30,7 +30,7 @@
     "core-js": "3.23.5"
   },
   "author": "Dorion Miller",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",

@@ -1,7 +1,18 @@
+//import "./images";
 import "./index.css";
-import { enableValidation, settings } from "./validation.js";
+import logoSrc from "../images/logo.svg";
+import avatarSrc from "../images/avatar.jpg";
+import pencilIconSrc from "../images/pencil-icon.svg";
+import addIconSrc from "../images/add-icon.svg";
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+} from "../scripts/validation.js";
+import Api from "../utils/Api.js";
+//const path = { enableValidation, settings };require("./validation.js");
 
-const initialCards = [
+/*const initialCards = [
   {
     name: "Golden Gate bridge",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
@@ -37,7 +48,57 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
     altText: "Mountain house",
   },
-];
+];*/
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "1d1ac213-7a85-46a2-9a19-e96c855359f6",
+    "Content-Type": "application/json",
+  },
+});
+
+/*api
+  .getInitialCards()
+  .then((cards) => {
+    console.log(cards);
+    cards.forEach((item) => {
+    const cardElement = getCardElement(item);
+    cardsList.append(cardElement);
+  })
+  /*.catch((err) => {
+    console.error(err);
+  })*/ // above is the traditional way and the line of code below is a shorthand way to write this line of code
+//}).catch(console.error);
+// This method went through some refactoring and is now the method below it. For an in-depth understanding revist "Project 9 Part 3 - API Endpoints Overview video @ 7:20.""
+
+api
+  .getAppInfo()
+  // TODO - Destructure the second item in the callback of the .then()
+  .then(([cards]) => {
+    console.log(cards);
+    cards.forEach((item) => {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+
+    // handle the user's information
+    // set the src of the avatar image
+    // set the textContent of both the text elements
+  })
+  .catch(console.error);
+
+const logoImage = document.getElementById("image-logo");
+logoImage.src = logoSrc;
+
+const avatarImage = document.getElementById("avatar-image");
+avatarImage.src = avatarSrc;
+
+const pencilIcon = document.getElementById("pencil-icon");
+pencilIcon.src = pencilIconSrc;
+
+const addIcon = document.getElementById("add-icon");
+addIcon.src = addIconSrc;
 
 //Profile elements
 const profileEditButton = document.querySelector(".profile__edit-btn");
@@ -86,9 +147,18 @@ function closeModal(modal) {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      // TODO - use data arguement instead of input values
+      profileName.textContent = data /*editModalNameInput.value*/;
+      profileDescription.textContent = data /*editModalDescriptionInput.value*/;
+      closeModal(editModal);
+    })
+    .catch(console.error);
 }
 
 function handleAddCardSubmit(evt) {
@@ -185,9 +255,9 @@ previewModalCloseBtn.addEventListener("click", () => {
   closeModal(previewModal);
 });
 
-initialCards.forEach((item) => {
+/*initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
   cardsList.append(cardElement);
-});
+});*/
 
 enableValidation(settings);
