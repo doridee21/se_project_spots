@@ -12,6 +12,15 @@
   border-radius: 8px;
 }
 
+.profile__pencil-icon {
+  color: rgba(255, 255, 255, 1);
+}
+
+.profile__avatar-btn::after {
+  content: "Edit Avatar";
+  color: #fff;
+}
+
 .profile__column {
   display: flex;
   flex-direction: column;

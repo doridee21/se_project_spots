@@ -2,12 +2,14 @@
 import "./index.css";
 import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/avatar.jpg";
+import editAvatarSrc from "../images/edit_avatar-btn.png";
 import pencilIconSrc from "../images/pencil-icon.svg";
 import addIconSrc from "../images/add-icon.svg";
 import {
   enableValidation,
   settings,
   resetValidation,
+  disableButton,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
 //const path = { enableValidation, settings };require("./validation.js");
@@ -75,16 +77,19 @@ const api = new Api({
 api
   .getAppInfo()
   // TODO - Destructure the second item in the callback of the .then()
-  .then(([cards]) => {
-    console.log(cards);
+  .then(([cards, userData]) => {
+    //console.log(cards);
     cards.forEach((item) => {
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
     });
 
-    // handle the user's information
-    // set the src of the avatar image
-    // set the textContent of both the text elements
+    // TODO - handle the user's information
+    // TODO - set the textContent of both the text elements
+    profileName.textContent = userData.name;
+    profileDescription.textContent = userData.about;
+    // TODO - set the src of the avatar image
+    avatarImage.src = userData.avatar;
   })
   .catch(console.error);
 
@@ -99,6 +104,9 @@ pencilIcon.src = pencilIconSrc;
 
 const addIcon = document.getElementById("add-icon");
 addIcon.src = addIconSrc;
+
+const avatarBtnImage = document.getElementById("avatarbtn-image");
+avatarBtnImage.src = editAvatarSrc;
 
 //Profile elements
 const profileEditButton = document.querySelector(".profile__edit-btn");
@@ -154,8 +162,9 @@ function handleEditFormSubmit(evt) {
     })
     .then((data) => {
       // TODO - use data arguement instead of input values
-      profileName.textContent = data /*editModalNameInput.value*/;
-      profileDescription.textContent = data /*editModalDescriptionInput.value*/;
+      profileName.textContent = data.name /*editModalNameInput.value*/;
+      profileDescription.textContent =
+        data.about /*editModalDescriptionInput.value*/;
       closeModal(editModal);
     })
     .catch(console.error);
@@ -185,7 +194,7 @@ function getCardElement(data) {
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
-  cardImageEl.alt = data.altText;
+  cardImageEl.alt = data.altText || `Photo of ${data.name}`;
 
   cardLikeBtn.addEventListener("click", () => {
     cardLikeBtn.classList.toggle("card__like-btn_liked");
@@ -195,7 +204,7 @@ function getCardElement(data) {
     openModal(previewModal);
     previewModalImageEl.src = data.link;
     previewModalCaptionEl.textContent = data.name;
-    previewModalImageEl.alt = data.altText;
+    previewModalImageEl.alt = data.altText || `Photo of ${data.name}`;
   });
 
   cardDeleteBtn.addEventListener("click", () => {
