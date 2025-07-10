@@ -60,6 +60,23 @@ class Api {
       Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  editAvatarInfo(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      // Send the data in the body as a JSON string.
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      // handle the response
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 // export the class

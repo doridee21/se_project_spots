@@ -123,7 +123,14 @@ const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
 
-// select the modal
+// Avatar modal elements
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarFormElement = avatarModal.querySelector(".modal__form");
+const avatarModalClosebtn = avatarModal.querySelector(".modal__close-btn");
+const avatarModalInput = avatarModal.querySelector("#profile-avatar-input");
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+
+// Preview modal elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = document.querySelector(".modal__image");
 const previewModalCaptionEl = document.querySelector(".modal__caption");
@@ -180,6 +187,18 @@ function handleAddCardSubmit(evt) {
   evt.target.reset();
   disableButton(cardSubmitBtn, settings);
   closeModal(cardModal);
+}
+
+function handleAAvatarFormSubmit(evt) {
+  evt.preventDefault();
+  console.log(avatarModalInput.value);
+  api
+    .editAvatarInfo(avatarModalInput.value)
+    .then((data) => {
+      avatarImage.src = data.avatar;
+      closeModal(avatarModal);
+    })
+    .catch(console.error);
 }
 
 function getCardElement(data) {
@@ -263,6 +282,15 @@ cardForm.addEventListener("submit", handleAddCardSubmit);
 previewModalCloseBtn.addEventListener("click", () => {
   closeModal(previewModal);
 });
+
+avatarModalBtn.addEventListener("click", () => {
+  openModal(avatarModal);
+});
+
+avatarModalClosebtn.addEventListener("click", () => {
+  closeModal(avatarModal);
+});
+avatarFormElement.addEventListener("submit", handleAAvatarFormSubmit);
 
 /*initialCards.forEach((item) => {
   const cardElement = getCardElement(item);

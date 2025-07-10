@@ -183,6 +183,40 @@
         <p class="modal__caption"></p>
       </div>
     </div>
+
+    <div class="modal modal_open" id="avatar-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h3 class="modal__title">Edit Avatar</h3>
+        <form
+          name="edit-avatar"
+          class="modal__form"
+          id="edit-avatar-form"
+          novalidate
+        >
+          <label for="profile-avatar-input" class="modal__label">
+            Avatar
+            <input
+              id="profile-avatar-input"
+              type="text"
+              class="modal__input"
+              name="avatar"
+              placeholder="Type your avatar URL"
+              required
+            />
+            <span class="modal__error_visible" id="profile-avatar-input-error">
+            </span>
+          </label>
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
     <!--<script type="module" src="./scripts/index.js"></script>-->
     <!--<script defer src="./scripts/validation.js"></script>-->
   </body>
