@@ -28,18 +28,20 @@
       <main class="content">
         <section class="profile page__section">
           <!--src="./images/avatar.jpg"-->
-          <button class="profile__avatar-btn">
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-btn">
+              <img
+                class="profile__pencil-icon"
+                id="avatarbtn-image"
+                alt="pencil icon"
+              />
+            </button>
             <img
-              class="profile__pencil-icon"
-              id="avatarbtn-image"
-              alt="pencil icon"
+              class="profile__avatar"
+              id="avatar-image"
+              alt="profile picture"
             />
-          </button>
-          <img
-            class="profile__avatar"
-            id="avatar-image"
-            alt="profile picture"
-          />
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
