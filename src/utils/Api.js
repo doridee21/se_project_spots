@@ -43,6 +43,28 @@ class Api {
     });
   }
 
+  // TODO - implement POST/cards and call it within index.js
+  // This method will add a new card to the server.
+
+  addNewCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    }).then((res) => {
+      // handle the response
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   editUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -69,6 +91,19 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
+    }).then((res) => {
+      // handle the response
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
     }).then((res) => {
       // handle the response
       if (res.ok) {

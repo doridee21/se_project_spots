@@ -217,6 +217,36 @@
         </form>
       </div>
     </div>
+    <!--TODO - style the delete modal-->
+    <div class="modal modal_openedd" id="delete-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h3 class="modal__title">
+          Are you sure you want to delete this image?
+        </h3>
+        <form
+          name="edit-avatar"
+          class="modal__form"
+          id="delete-form"
+          novalidate
+        >
+          <button
+            type="submit"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Delete
+          </button>
+          <button
+            type="button"
+            class="modal__button modal__button_disabled"
+            disabled
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
     <!--<script type="module" src="./scripts/index.js"></script>-->
     <!--<script defer src="./scripts/validation.js"></script>-->
   </body>

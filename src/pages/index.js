@@ -130,6 +130,10 @@ const avatarModalClosebtn = avatarModal.querySelector(".modal__close-btn");
 const avatarModalInput = avatarModal.querySelector("#profile-avatar-input");
 const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 
+// Delete form elements
+const deleteModal = document.querySelector("#delete-modal");
+const deleteFormElement = deleteModal.querySelector(".modal__form");
+
 // Preview modal elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = document.querySelector(".modal__image");
@@ -150,6 +154,9 @@ const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 const cardSubmitBtn = cardModal.querySelector(".modal__button");
 
+let selectedCard, selectedCardId;
+//let selectedCardId; // above we can also declare both variables on one line
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", closeModalOnEscape);
@@ -158,6 +165,25 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", closeModalOnEscape);
+}
+
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+}
+
+function handleDeleteCard(cardElement, cardId) {
+  //evt.target.closest(".card").remove();
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  console.log(cardId);
+  openModal(deleteModal);
 }
 
 function handleEditFormSubmit(evt) {
@@ -226,9 +252,11 @@ function getCardElement(data) {
     previewModalImageEl.alt = data.altText || `Photo of ${data.name}`;
   });
 
-  cardDeleteBtn.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  cardDeleteBtn.addEventListener("click", (evt) =>
+    //cardElement.remove();
+    //openModal(deleteModal);
+    handleDeleteCard(cardElement, data._id)
+  );
 
   return cardElement;
 }
@@ -291,6 +319,20 @@ avatarModalClosebtn.addEventListener("click", () => {
   closeModal(avatarModal);
 });
 avatarFormElement.addEventListener("submit", handleAAvatarFormSubmit);
+
+deleteFormElement.addEventListener(
+  "submit",
+  /*evt.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+});*/
+  handleDeleteSubmit
+);
 
 /*initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
