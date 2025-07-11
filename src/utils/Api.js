@@ -51,6 +51,7 @@ class Api {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...this._headers,
       },
       body: JSON.stringify({
         name,
@@ -61,7 +62,7 @@ class Api {
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(new Error(`Error: ${res.status}`));
     });
   }
 

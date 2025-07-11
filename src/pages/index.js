@@ -206,16 +206,36 @@ function handleEditFormSubmit(evt) {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
+  disableButton(cardSubmitBtn, settings);
+
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardElement = getCardElement(inputValues);
 
-  cardsList.prepend(cardElement);
-  evt.target.reset();
-  disableButton(cardSubmitBtn, settings);
-  closeModal(cardModal);
+  api
+    .addNewCard(inputValues)
+    .then((cardData) => {
+      const newCardElement = getCardElement(cardData);
+      cardsList.prepend(newCardElement);
+      closeModal(cardModal);
+      cardForm.reset();
+      resetValidation(cardForm, [cardNameInput, cardLinkInput]);
+    })
+    .catch((error) => {
+      // Handle any errors from the API call
+      console.error("Error adding new card:", error);
+      alert("Failed to add new card. Please check console for details.");
+    });
+  //.catch(console.error);
+  //cardsList.prepend(cardElement);
+  //evt.target.reset();
+  //disableButton(cardSubmitBtn, settings);
+  //closeModal(cardModal);
+  /*.finally(() => {
+      enableButton(cardSubmitButton, settings);
+    });*/
 }
 
-function handleAAvatarFormSubmit(evt) {
+function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
   console.log(avatarModalInput.value);
   api
@@ -318,7 +338,7 @@ avatarModalBtn.addEventListener("click", () => {
 avatarModalClosebtn.addEventListener("click", () => {
   closeModal(avatarModal);
 });
-avatarFormElement.addEventListener("submit", handleAAvatarFormSubmit);
+avatarFormElement.addEventListener("submit", handleAvatarFormSubmit);
 
 deleteFormElement.addEventListener(
   "submit",
