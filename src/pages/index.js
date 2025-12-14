@@ -1,4 +1,5 @@
 //import "./images";
+import { setButtonText } from "../utils/helpers.js";
 import "./index.css";
 import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/avatar.jpg";
@@ -182,12 +183,16 @@ function handleDeleteCard(cardElement, cardId) {
   //evt.target.closest(".card").remove();
   selectedCard = cardElement;
   selectedCardId = cardId;
-  console.log(cardId);
+  //console.log(cardId);
   openModal(deleteModal);
 }
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+  // Change text content to "Saving..." when the form is submitted"
+  const editModalClosebtn = evt.submitter;
+  //editModalClosebtn.textContent = "Saving...";
+  setButtonText(editModalClosebtn, true);
   api
     .editUserInfo({
       name: editModalNameInput.value,
@@ -200,7 +205,12 @@ function handleEditFormSubmit(evt) {
         data.about /*editModalDescriptionInput.value*/;
       closeModal(editModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      /* Revert the button text back to "Save" after the API call is complete */
+      //editModalClosebtn.textContent = "Save";
+      setButtonText(editModalClosebtn, false);
+    });
 }
 
 function handleAddCardSubmit(evt) {
@@ -210,7 +220,7 @@ function handleAddCardSubmit(evt) {
 
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardElement = getCardElement(inputValues);
-
+  setButtonText(cardSubmitBtn, true);
   api
     .addNewCard(inputValues)
     .then((cardData) => {
@@ -224,7 +234,11 @@ function handleAddCardSubmit(evt) {
       // Handle any errors from the API call
       console.error("Error adding new card:", error);
       alert("Failed to add new card. Please check console for details.");
+    })
+    .finally(() => {
+      setButtonText(cardSubmitBtn, false);
     });
+  // Above is the traditional way and the line of code below is a shorthand way to write this line of code
   //.catch(console.error);
   //cardsList.prepend(cardElement);
   //evt.target.reset();
@@ -237,6 +251,9 @@ function handleAddCardSubmit(evt) {
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
+  const avatarSubmitBtn = evt.submitter;
+  setButtonText(avatarSubmitBtn, true);
+
   console.log(avatarModalInput.value);
   api
     .editAvatarInfo(avatarModalInput.value)
@@ -244,7 +261,26 @@ function handleAvatarFormSubmit(evt) {
       avatarImage.src = data.avatar;
       closeModal(avatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(avatarSubmitBtn, false);
+    });
+}
+
+function handleCardLike(evt, id) {
+  //cardLikeBtn.classList.toggle("card__like-btn_liked");
+  // remove - evt.target.classList.toggle("card__like-btn_liked");
+  const cardLikeBtn = evt.target;
+  const isLiked = cardLikeBtn.classList.contains("card__like-btn_liked");
+  api
+    .changeLikeStatus(id, isLiked)
+    .then(() => {
+      cardLikeBtn.classList.toggle("card__like-btn_liked");
+    })
+    .catch((error) => {
+      console.error("Error changing like status:", error);
+      alert("Failed to change like status. Please check console for details.");
+    });
 }
 
 function getCardElement(data) {
@@ -257,13 +293,16 @@ function getCardElement(data) {
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
+  // TODO - if card is liked, set the active class on the card
+  if (data.isLiked) {
+    cardLikeBtn.classList.add("card__like-btn_liked");
+  }
+
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = data.altText || `Photo of ${data.name}`;
 
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__like-btn_liked");
-  });
+  cardLikeBtn.addEventListener("click", (evt) => handleCardLike(evt, data._id));
 
   cardImageEl.addEventListener("click", () => {
     openModal(previewModal);
@@ -272,9 +311,7 @@ function getCardElement(data) {
     previewModalImageEl.alt = data.altText || `Photo of ${data.name}`;
   });
 
-  cardDeleteBtn.addEventListener("click", (evt) =>
-    //cardElement.remove();
-    //openModal(deleteModal);
+  cardDeleteBtn.addEventListener("click", () =>
     handleDeleteCard(cardElement, data._id)
   );
 

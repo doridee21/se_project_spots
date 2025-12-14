@@ -49,10 +49,7 @@ class Api {
   addNewCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...this._headers,
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name,
         link,
@@ -113,6 +110,33 @@ class Api {
       Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  changeLikeStatus(id, isLiked) {
+    //const method = isLiked ? "DELETE" : "PUT";
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: isLiked ? "DELETE" : "PUT", // This works the same way as the 115 line of code above
+      headers: this._headers,
+    }).then((res) => {
+      // handle the response
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  /*removelike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      // handle the response
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }*/
 }
 
 // export the class
