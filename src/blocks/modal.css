@@ -145,7 +145,7 @@
   padding: 18px 0;
   border-radius: 8px;
   color: rgba(252, 245, 229, 1);
-  background-color: rgba(33, 33, 33, 1);
+  background-color: rgba(255, 101, 101, 1);
   cursor: pointer;
 }
 
@@ -161,10 +161,23 @@
 
   .modal__container {
     padding: 12px;
+    height: 224px;
+    width: 300px;
   }
 
   .modal__container_type_preview {
     padding: 0 6px 0;
+  }
+
+  .modal__form {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  #delete-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .modal__image {
@@ -176,12 +189,14 @@
   .modal__title {
     font-size: 20px;
     line-height: 1;
-    margin: 10px 0 34px;
+    text-align: center;
+    /*margin: 12px 0 12px;*/
   }
 
   .modal__close-btn {
-    top: 12px;
+    top: -45px;
     right: 0px;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   .modal__close-btn_type_preview {
