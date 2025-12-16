@@ -10,3 +10,16 @@ export function setButtonText(
     btn.textContent = "Save";
   }
 }
+
+export function setDeleteButtonText(
+  btn,
+  isLoading,
+  defaultText = "Delete",
+  loadingText = "Deleting..."
+) {
+  if (isLoading) {
+    btn.textContent = "Deleting...";
+  } else {
+    btn.textContent = "Delete";
+  }
+}

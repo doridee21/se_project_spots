@@ -1,5 +1,5 @@
 //import "./images";
-import { setButtonText } from "../utils/helpers.js";
+import { setButtonText, setDeleteButtonText } from "../utils/helpers.js";
 import "./index.css";
 import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/avatar.jpg";
@@ -170,13 +170,18 @@ function closeModal(modal) {
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
+  const deleteSubmitBtn = evt.submitter;
+  setDeleteButtonText(deleteSubmitBtn, true);
   api
     .deleteCard(selectedCardId)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setDeleteButtonText(deleteSubmitBtn, false);
+    });
 }
 
 function handleDeleteCard(cardElement, cardId) {
