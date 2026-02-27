@@ -134,6 +134,9 @@ const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 // Delete form elements
 const deleteModal = document.querySelector("#delete-modal");
 const deleteFormElement = deleteModal.querySelector(".modal__form");
+const deleteModalClosebtn = deleteModal.querySelector(".modal__close-btn");
+//const deleteSubmitBtn = deleteModal.querySelector(".modal__button_type_cancel");
+const deleteCancelBtn = deleteModal.querySelector("#cancel-btn");
 
 // Preview modal elements
 const previewModal = document.querySelector("#preview-modal");
@@ -395,6 +398,14 @@ deleteFormElement.addEventListener(
 });*/
   handleDeleteSubmit
 );
+
+deleteModalClosebtn.addEventListener("click", () => {
+  closeModal(deleteModal);
+});
+
+deleteCancelBtn.addEventListener("click", () => {
+  closeModal(deleteModal);
+});
 
 /*initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
