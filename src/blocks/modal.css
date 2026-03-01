@@ -170,8 +170,8 @@
   font-size: 18px;
   line-height: 22px;
   font-weight: 500;
-  max-width: 100%;
-  white-space: nowrap;
+  max-width: 220px;
+  white-space: normal;
 }
 
 /* Flexbox to align buttons side-by-side as seen in Figma */
@@ -256,30 +256,35 @@
     width: 300px;
   }
 
+  .profile__avatar-container {
+    margin-right: 0; /* Removes the desktop spacing that is pushing it left */
+    margin-bottom: 26px; /* Adds space between the pic and the name as seen in Figma */
+  }
+
   #delete-modal .modal__title {
-  width: 100%;
-  max-width: 100%; /* Allow it to use the full available container space */
-  margin: 0 0 38px;
-  padding: 0;
-  text-align: center;
-  line-height: 1.2;
-}
+    width: 100%;
+    max-width: 220px; /* Allow it to use the full available container space */
+    margin: 0;
+    padding-bottom: 20px;
+    text-align: center;
+    line-height: 1.2;
+  }
 
   #delete-modal .modal__container {
-    height: 224px;
+    height: auto;
     width: calc(100% - 38px);
-    max-width: 430px;
-    padding: 34px 20px;
+    max-width: 300px;
+    padding: 12px;
   }
 
   .modal__container_type_preview {
     padding: 0 6px 0;
   }
 
-  .modal__form {
+  /*.modal__form {
     padding-left:;
     padding-right:;
-  }
+  }*/
 
   #delete-form {
     display: flex;
@@ -303,14 +308,19 @@
   }
 
   .modal__close-btn {
-    top: -45px;
+    left: auto;
+    top: -40px;
     right: 0px;
     background-color: rgba(0, 0, 0, 0);
+    width: 26px;
+    height: 26px;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
 
   .modal__close-btn_type_preview {
     background: url(../images/close_preview.svg);
-    top: -41px;
+    top: -35px;
     right: 0px;
     opacity: 1;
     padding: 0;
