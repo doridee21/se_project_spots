@@ -14,7 +14,9 @@
   visibility: hidden;
   font-family: "Poppins", "Courier New", sans-serif;
   opacity: 0;
-  transition: visibility 0.3s, opacity 0.3s ease-in;
+  transition:
+    visibility 0.3s,
+    opacity 0.3s ease-in;
 }
 
 .modal_opened {
@@ -24,9 +26,8 @@
 
 .modal__container {
   background-color: #fff;
-  padding: 32px 50px;
-  max-width: 730px;
-  width: 100%;
+  padding: 32px 20px;
+  width: 630px;
   box-sizing: border-box;
   position: relative;
   border-radius: 8px;
@@ -62,13 +63,13 @@
 
 .modal__close-btn {
   position: absolute;
-  top: 32px;
-  right: 50px;
+  top: 1px;
+  left: 640px;
   width: 40px;
   height: 40px;
-  background-image: url(../images/close-icon.svg);
+  background-image: url(../images/1newclose-icon.png);
   background-position: center;
-  background-color: #fff;
+  background-color: transparent;
   border: none;
   cursor: pointer;
 }
@@ -155,10 +156,10 @@
 
 /* Container adjustments for the confirmation layout */
 #delete-modal .modal__container {
-  padding: 34px 64px 34px;
+  padding: 32px 20px;
   text-align: center;
-  width: 430px;
-  min-height: 180px;
+  width: 630px;
+  height: 172px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,8 +169,9 @@
   margin: 0 0 38px;
   font-size: 18px;
   line-height: 22px;
-  font-weight: 900;
-  max-width: 290px;
+  font-weight: 500;
+  max-width: 100%;
+  white-space: nowrap;
 }
 
 /* Flexbox to align buttons side-by-side as seen in Figma */
@@ -183,7 +185,12 @@
 
 /* The red Delete button */
 #delete-btn {
-  background-color: #e33d3d; /* The specific red from your screenshot */
+  background-color: rgba(
+    255,
+    101,
+    101,
+    1
+  ); /* The specific red from your screenshot */
   color: #ffffff;
   border: none;
   width: 120px;
@@ -203,10 +210,16 @@
   padding: 0;
 }
 
-#delete-btn:hover,
+#delete-btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  background-color: rgba(255, 51, 51, 1);
+}
 #cancel-btn:hover {
   opacity: 0.8;
   cursor: pointer;
+  background-color: rgba(33, 33, 33, 1);
+  color: rgba(255, 255, 255, 1);
 }
 
 /*#delete-btn {
@@ -243,19 +256,36 @@
     width: 300px;
   }
 
+  #delete-modal .modal__title {
+  width: 100%;
+  max-width: 100%; /* Allow it to use the full available container space */
+  margin: 0 0 38px;
+  padding: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+  #delete-modal .modal__container {
+    height: 224px;
+    width: calc(100% - 38px);
+    max-width: 430px;
+    padding: 34px 20px;
+  }
+
   .modal__container_type_preview {
     padding: 0 6px 0;
   }
 
   .modal__form {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left:;
+    padding-right:;
   }
 
   #delete-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    align-items: center;
   }
 
   .modal__image {
@@ -268,6 +298,7 @@
     font-size: 20px;
     line-height: 1;
     text-align: center;
+    white-space: wrap;
     /*margin: 12px 0 12px;*/
   }
 
