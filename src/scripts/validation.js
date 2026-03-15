@@ -1,4 +1,3 @@
-//module.exports = { settings };
 export const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -68,7 +67,6 @@ const setEventListeners = (formEl, config) => {
   });
 };
 
-//module.exports = { enableValidation };
 export const enableValidation = (config) => {
   const formList = document.querySelectorAll(config.formSelector);
   formList.forEach((formEl) => {
