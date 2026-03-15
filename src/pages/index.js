@@ -1,4 +1,3 @@
-//import "./images";
 import { setButtonText, setDeleteButtonText } from "../utils/helpers.js";
 import "./index.css";
 import logoSrc from "../images/logo.svg";
@@ -13,45 +12,6 @@ import {
   disableButton,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
-//const path = { enableValidation, settings };require("./validation.js");
-
-/*const initialCards = [
-  {
-    name: "Golden Gate bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-    altText: "Golden Gate bridge",
-  },
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-    altText: "Val Thorens",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-    altText: "Restaurant terrace",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-    altText: "An outdoor cafe",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-    altText: "A very long bridge, over the forest and through the trees",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-    altText: "Tunnel with morning light",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-    altText: "Mountain house",
-  },
-];*/
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -61,35 +21,18 @@ const api = new Api({
   },
 });
 
-/*api
-  .getInitialCards()
-  .then((cards) => {
-    console.log(cards);
-    cards.forEach((item) => {
-    const cardElement = getCardElement(item);
-    cardsList.append(cardElement);
-  })
-  /*.catch((err) => {
-    console.error(err);
-  })*/ // above is the traditional way and the line of code below is a shorthand way to write this line of code
-//}).catch(console.error);
-// This method went through some refactoring and is now the method below it. For an in-depth understanding revist "Project 9 Part 3 - API Endpoints Overview video @ 7:20.""
-
 api
   .getAppInfo()
-  // TODO - Destructure the second item in the callback of the .then()
+
   .then(([cards, userData]) => {
-    //console.log(cards);
     cards.forEach((item) => {
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
     });
 
-    // TODO - handle the user's information
-    // TODO - set the textContent of both the text elements
     profileName.textContent = userData.name;
     profileDescription.textContent = userData.about;
-    // TODO - set the src of the avatar image
+
     avatarImage.src = userData.avatar;
   })
   .catch(console.error);
@@ -121,7 +64,7 @@ const editFormElement = editModal.querySelector(".modal__form");
 const editModalClosebtn = editModal.querySelector(".modal__close-btn");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
-  "#profile-description-input"
+  "#profile-description-input",
 );
 
 // Avatar modal elements
@@ -135,7 +78,7 @@ const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const deleteModal = document.querySelector("#delete-modal");
 const deleteFormElement = deleteModal.querySelector(".modal__form");
 const deleteModalClosebtn = deleteModal.querySelector(".modal__close-btn");
-//const deleteSubmitBtn = deleteModal.querySelector(".modal__button_type_cancel");
+
 const deleteCancelBtn = deleteModal.querySelector("#cancel-btn");
 
 // Preview modal elements
@@ -143,7 +86,7 @@ const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = document.querySelector(".modal__image");
 const previewModalCaptionEl = document.querySelector(".modal__caption");
 const previewModalCloseBtn = document.querySelector(
-  ".modal__close-btn_type_preview"
+  ".modal__close-btn_type_preview",
 );
 
 // select other neccesary elements
@@ -159,7 +102,6 @@ const cardsList = document.querySelector(".cards__list");
 const cardSubmitBtn = cardModal.querySelector(".modal__button");
 
 let selectedCard, selectedCardId;
-//let selectedCardId; // above we can also declare both variables on one line
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
@@ -188,18 +130,17 @@ function handleDeleteSubmit(evt) {
 }
 
 function handleDeleteCard(cardElement, cardId) {
-  //evt.target.closest(".card").remove();
   selectedCard = cardElement;
   selectedCardId = cardId;
-  //console.log(cardId);
+
   openModal(deleteModal);
 }
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  // Change text content to "Saving..." when the form is submitted"
+
   const editModalClosebtn = evt.submitter;
-  //editModalClosebtn.textContent = "Saving...";
+
   setButtonText(editModalClosebtn, true);
   api
     .editUserInfo({
@@ -207,16 +148,12 @@ function handleEditFormSubmit(evt) {
       about: editModalDescriptionInput.value,
     })
     .then((data) => {
-      // TODO - use data arguement instead of input values
-      profileName.textContent = data.name /*editModalNameInput.value*/;
-      profileDescription.textContent =
-        data.about /*editModalDescriptionInput.value*/;
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
       closeModal(editModal);
     })
     .catch(console.error)
     .finally(() => {
-      /* Revert the button text back to "Save" after the API call is complete */
-      //editModalClosebtn.textContent = "Save";
       setButtonText(editModalClosebtn, false);
     });
 }
@@ -239,22 +176,12 @@ function handleAddCardSubmit(evt) {
       resetValidation(cardForm, [cardNameInput, cardLinkInput]);
     })
     .catch((error) => {
-      // Handle any errors from the API call
       console.error("Error adding new card:", error);
       alert("Failed to add new card. Please check console for details.");
     })
     .finally(() => {
       setButtonText(cardSubmitBtn, false);
     });
-  // Above is the traditional way and the line of code below is a shorthand way to write this line of code
-  //.catch(console.error);
-  //cardsList.prepend(cardElement);
-  //evt.target.reset();
-  //disableButton(cardSubmitBtn, settings);
-  //closeModal(cardModal);
-  /*.finally(() => {
-      enableButton(cardSubmitButton, settings);
-    });*/
 }
 
 function handleAvatarFormSubmit(evt) {
@@ -276,8 +203,6 @@ function handleAvatarFormSubmit(evt) {
 }
 
 function handleCardLike(evt, id) {
-  //cardLikeBtn.classList.toggle("card__like-btn_liked");
-  // remove - evt.target.classList.toggle("card__like-btn_liked");
   const cardLikeBtn = evt.target;
   const isLiked = cardLikeBtn.classList.contains("card__like-btn_liked");
   api
@@ -301,7 +226,6 @@ function getCardElement(data) {
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
   const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
-  // TODO - if card is liked, set the active class on the card
   if (data.isLiked) {
     cardLikeBtn.classList.add("card__like-btn_liked");
   }
@@ -320,7 +244,7 @@ function getCardElement(data) {
   });
 
   cardDeleteBtn.addEventListener("click", () =>
-    handleDeleteCard(cardElement, data._id)
+    handleDeleteCard(cardElement, data._id),
   );
 
   return cardElement;
@@ -385,19 +309,7 @@ avatarModalClosebtn.addEventListener("click", () => {
 });
 avatarFormElement.addEventListener("submit", handleAvatarFormSubmit);
 
-deleteFormElement.addEventListener(
-  "submit",
-  /*evt.preventDefault();
-  api
-    .deleteCard(selectedCardId)
-    .then(() => {
-      selectedCard.remove();
-      closeModal(deleteModal);
-    })
-    .catch(console.error);
-});*/
-  handleDeleteSubmit
-);
+deleteFormElement.addEventListener("submit", handleDeleteSubmit);
 
 deleteModalClosebtn.addEventListener("click", () => {
   closeModal(deleteModal);
@@ -406,10 +318,5 @@ deleteModalClosebtn.addEventListener("click", () => {
 deleteCancelBtn.addEventListener("click", () => {
   closeModal(deleteModal);
 });
-
-/*initialCards.forEach((item) => {
-  const cardElement = getCardElement(item);
-  cardsList.append(cardElement);
-});*/
 
 enableValidation(settings);

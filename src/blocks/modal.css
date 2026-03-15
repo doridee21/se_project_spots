@@ -99,7 +99,6 @@
 }
 
 .modal__label {
-  /*display: block or display: flex? Examine this style...*/
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -111,7 +110,6 @@
 }
 
 .modal__input {
-  /*width: 100%  examine this style...*/
   padding: 16px 12px;
   border: 1px solid rgba(33, 33, 33, 0.4);
   border-radius: 8px;
@@ -154,7 +152,6 @@
   border: none;
 }
 
-/* Container adjustments for the confirmation layout */
 #delete-modal .modal__container {
   padding: 32px 20px;
   text-align: center;
@@ -174,7 +171,6 @@
   white-space: normal;
 }
 
-/* Flexbox to align buttons side-by-side as seen in Figma */
 #delete-form {
   display: flex;
   flex-direction: row;
@@ -183,14 +179,8 @@
   width: 100%;
 }
 
-/* The red Delete button */
 #delete-btn {
-  background-color: rgba(
-    255,
-    101,
-    101,
-    1
-  ); /* The specific red from your screenshot */
+  background-color: rgba(255, 101, 101, 1);
   color: #ffffff;
   border: none;
   width: 120px;
@@ -199,7 +189,6 @@
   padding: 0;
 }
 
-/* The white/outlined Cancel button */
 #cancel-btn {
   background-color: #ffffff;
   color: #000000;
@@ -222,24 +211,6 @@
   color: rgba(255, 255, 255, 1);
 }
 
-/*#delete-btn {
-  width: 156px;
-  padding: 18px 0;
-  border-radius: 8px;
-  color: rgba(252, 245, 229, 1);
-  background-color: rgba(255, 101, 101, 1);
-  cursor: pointer;
-}*/
-
-/*#cancel-btn {
-  width: 156px;
-  padding: 18px 0;
-  border-radius: 8px;
-  color: rgba(252, 245, 229, 1);
-  background-color: rgba(255, 255, 255, 1);
-  cursor: pointer;
-}*/
-
 .modal__button_disabled {
   background-color: rgba(33, 33, 33, 1);
   opacity: 50%;
@@ -257,13 +228,13 @@
   }
 
   .profile__avatar-container {
-    margin-right: 0; /* Removes the desktop spacing that is pushing it left */
-    margin-bottom: 26px; /* Adds space between the pic and the name as seen in Figma */
+    margin-right: 0;
+    margin-bottom: 26px;
   }
 
   #delete-modal .modal__title {
     width: 100%;
-    max-width: 220px; /* Allow it to use the full available container space */
+    max-width: 220px;
     margin: 0;
     padding-bottom: 20px;
     text-align: center;
@@ -280,11 +251,6 @@
   .modal__container_type_preview {
     padding: 0 6px 0;
   }
-
-  /*.modal__form {
-    padding-left:;
-    padding-right:;
-  }*/
 
   #delete-form {
     display: flex;
@@ -304,7 +270,6 @@
     line-height: 1;
     text-align: center;
     white-space: wrap;
-    /*margin: 12px 0 12px;*/
   }
 
   .modal__close-btn {

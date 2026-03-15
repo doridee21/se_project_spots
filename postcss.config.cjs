@@ -4,8 +4,5 @@ const cssnano = require("cssnano");
 
 module.exports = {
   // Connect plugins to PostCSS
-  plugins: [
-    autoprefixer,
-    cssnano({ preset: "default" }), // set default minification settings
-  ],
+  plugins: [autoprefixer, cssnano({ preset: "default" })],
 };

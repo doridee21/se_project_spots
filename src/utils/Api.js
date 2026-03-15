@@ -1,50 +1,37 @@
-// utils/Api.js
-
 class Api {
   constructor({ baseUrl, headers }) {
-    // constructor body
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
 
   getAppInfo() {
-    // TODO - Call the new method in this array
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
   getInitialCards() {
-    // ...
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   // other methods for working with the API
 
-  // TODO - Create another method, something like, "getUserInfo," (different base url)
-
   getUserInfo() {
-    return fetch(
-      `${this._baseUrl}/users/me` /*"https://around-api.en.tripleten-services.com/v1/users/me"*/,
-      {
-        method: "GET",
-        headers: this._headers,
-      }
-    ).then((res) => {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "GET",
+      headers: this._headers,
+    }).then((res) => {
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
-
-  // TODO - implement POST/cards and call it within index.js
-  // This method will add a new card to the server.
 
   addNewCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
@@ -55,7 +42,6 @@ class Api {
         link,
       }),
     }).then((res) => {
-      // handle the response
       if (res.ok) {
         return res.json();
       }
@@ -67,17 +53,15 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      // Send the data in the body as a JSON string.
       body: JSON.stringify({
         name,
         about,
       }),
     }).then((res) => {
-      // handle the response
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
@@ -85,16 +69,14 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      // Send the data in the body as a JSON string.
       body: JSON.stringify({
         avatar,
       }),
     }).then((res) => {
-      // handle the response
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
@@ -103,41 +85,24 @@ class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      // handle the response
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   changeLikeStatus(id, isLiked) {
-    //const method = isLiked ? "DELETE" : "PUT";
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-      method: isLiked ? "DELETE" : "PUT", // This works the same way as the 115 line of code above
+      method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
     }).then((res) => {
-      // handle the response
       if (res.ok) {
         return res.json();
       }
-      Promise.reject(`Error: ${res.status}`);
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
-
-  /*removelike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      // handle the response
-      if (res.ok) {
-        return res.json();
-      }
-      Promise.reject(`Error: ${res.status}`);
-    });
-  }*/
 }
 
-// export the class
 export default Api;
