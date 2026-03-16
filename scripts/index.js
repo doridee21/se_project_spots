@@ -1,5 +1,5 @@
-import { setButtonText, setDeleteButtonText } from "../utils/helpers.js";
-import "./index.css";
+import { setButtonText, setDeleteButtonText } from "../src/utils/helpers.js";
+import "../pages/index.css";
 import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/avatar.jpg";
 import editAvatarSrc from "../images/edit_avatar-btn.png";
@@ -10,8 +10,8 @@ import {
   settings,
   resetValidation,
   disableButton,
-} from "../scripts/validation.js";
-import Api from "../utils/Api.js";
+} from "./validation.js";
+import Api from "../src/utils/Api.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -189,7 +189,7 @@ function handleAvatarFormSubmit(evt) {
   const avatarSubmitBtn = evt.submitter;
   setButtonText(avatarSubmitBtn, true);
 
-  console.log(avatarModalInput.value);
+  avatarModalInput.value;
   api
     .editAvatarInfo(avatarModalInput.value)
     .then((data) => {
